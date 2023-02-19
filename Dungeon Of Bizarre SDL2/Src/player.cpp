@@ -13,7 +13,7 @@ void Player::Restart()
 	health = 100.0f;
 	hurt = false;
 	x = ROOM_MAX_WIDTH/2;
-	x = ROOM_MAX_HEIGHT/2;
+	y = ROOM_MAX_HEIGHT/2;
 }
 
 void Player::Update()

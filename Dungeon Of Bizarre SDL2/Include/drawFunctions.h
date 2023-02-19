@@ -2,11 +2,13 @@
 #include <iostream>
 #include "app.h"
 #include "SDL.h"
+#include "SDL_ttf.h"
 #include "SDL_image.h"
 #include "camera.h"
 #include "entity.h"
 
 extern App app;
+extern TTF_Font* font;
 
 class DrawFunctions
 {
@@ -18,6 +20,7 @@ public:
 	static void DrawEntity(Entity pEntity, Camera pCamera, double pAngle);
 	static void Blit(SDL_Texture* pTexture, int pX, int pY);
 	static void Blit(SDL_Texture* pTexture, int pX, int pY, Camera pCamera);
+	static void DrawText(const char* pText, SDL_Rect pDst, SDL_Color pColor);
 
 	static SDL_Texture* LoadTexture(const char* pFilepath);
 	static SDL_Point GetTextureSize(SDL_Texture* pTexture);

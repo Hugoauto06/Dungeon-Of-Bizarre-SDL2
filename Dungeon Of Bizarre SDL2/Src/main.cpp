@@ -1,9 +1,10 @@
 #include "main.h"
 #include "collision.h"
 #include "spawner.h"
+#include "SDL_ttf.h"
 using namespace std;
 
-App app					= App("My app", 1280, 720);
+App app					= App("Dungeon Of Bizarre", 1280, 720);
 SDL_Texture* tPlayer	= DrawFunctions::LoadTexture("player.png");
 SDL_Texture* tEnemy		= DrawFunctions::LoadTexture("enemy.png");
 SDL_Texture* tBullet	= DrawFunctions::LoadTexture("bullet.png");
@@ -13,14 +14,18 @@ Camera camera			= Camera(0, 0, 1280, 720);
 Spawner spawner			= Spawner();
 vector<Bullet*> bullets;
 vector<Enemy*> enemies;
+TTF_Font* font;
 int delayClick = 0;
-
+long score = 0;
 
 void Init()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
+	TTF_Init();
 	Mix_Init(MIX_INIT_MP3);
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
+
+	font = TTF_OpenFont("font.ttf", 72);
 }
 
 void InstantiateEnemy(int pX, int pY)
@@ -38,7 +43,6 @@ void InstantiateBullet(int pX, int pY)
 	Mix_Chunk* sndGunshot = Mix_LoadWAV("sndGunshot.wav");
 	Mix_VolumeChunk(sndGunshot, 10);
 	Mix_PlayChannel(2, sndGunshot, 0);
-
 }
 
 void UpdateDelegate()
@@ -55,6 +59,7 @@ void UpdateDelegate()
 		if (enemies[i]->health <= 0)
 		{
 			enemies.erase(enemies.begin() + i);
+			score += 100;
 			break;
 		}
 
@@ -72,7 +77,7 @@ void UpdateDelegate()
 		bullets[i]->Update();
 	}
 
-	if (app.click && delayClick > 10)
+	if (app.click && delayClick > 8)
 	{
 		InstantiateBullet(player.x, player.y);
 		delayClick = 0;
@@ -83,6 +88,7 @@ void UpdateDelegate()
 		player.Restart();
 		bullets.clear();
 		enemies.clear();
+		score = 0;
 	}
 }
 
@@ -101,6 +107,14 @@ void DrawDelegate()
 		_bullet->Draw();
 	}
 
+	/* Gui */
+	SDL_Rect _dst = { 32, 32, 96, 48 };
+	SDL_Color _col = { 0, 255, 255, 255 };
+	string _s = "Score: " + to_string(score);
+
+	DrawFunctions::DrawText(_s.c_str(), _dst, _col);
+
+	/* Update Display */
 	app.Display();
 	app.Clear();
 }

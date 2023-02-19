@@ -69,3 +69,26 @@ SDL_Point DrawFunctions::GetTextureSize(SDL_Texture* pTexture)
 	SDL_QueryTexture(pTexture, NULL, NULL, &_size.x, &_size.y);
 	return _size;
 }
+
+
+void DrawFunctions::DrawText(const char* pText, SDL_Rect pDst, SDL_Color pColor)
+{
+	SDL_Surface* text;
+
+	text = TTF_RenderText_Solid(font, pText, pColor);
+	if (!text)
+	{
+		cout << "Failed to render text: " << TTF_GetError() << endl;
+	}
+
+	SDL_Texture* text_texture;
+
+	text_texture = SDL_CreateTextureFromSurface(app.renderer, text);
+
+	SDL_Rect dest = { 0, 0, text->w, text->h };
+
+	SDL_RenderCopy(app.renderer, text_texture, &dest, &pDst);
+
+	SDL_DestroyTexture(text_texture);
+	SDL_FreeSurface(text);
+}
