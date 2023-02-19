@@ -14,5 +14,4 @@
 #include "bullet.h"
 //#include "initializeApp.h"
 
-
 extern void DoInput(void);

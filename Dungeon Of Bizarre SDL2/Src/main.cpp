@@ -19,6 +19,8 @@ int delayClick = 0;
 void Init()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
+	Mix_Init(MIX_INIT_MP3);
+	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
 }
 
 void InstantiateEnemy(int pX, int pY)
@@ -30,8 +32,13 @@ void InstantiateEnemy(int pX, int pY)
 void InstantiateBullet(int pX, int pY)
 {
 	Bullet* _bullet = new Bullet(pX, pY, 16, tBullet);
-	_bullet->speed	= 10.0f;
+	_bullet->speed	= 15.0f;
 	bullets.push_back(_bullet);
+
+	Mix_Chunk* sndGunshot = Mix_LoadWAV("sndGunshot.wav");
+	Mix_VolumeChunk(sndGunshot, 10);
+	Mix_PlayChannel(2, sndGunshot, 0);
+
 }
 
 void UpdateDelegate()
@@ -105,6 +112,10 @@ int main(int argc, char** args)
 	remainder = 0;
 
 	Init();
+	
+	Mix_Music* musSong = Mix_LoadMUS("song.mp3");
+	Mix_PlayMusic(musSong, false);
+	Mix_VolumeMusic(50);
 
 	while(!app.done)
 	{
