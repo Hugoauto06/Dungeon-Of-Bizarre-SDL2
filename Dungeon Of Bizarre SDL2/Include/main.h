@@ -1,4 +1,5 @@
 #pragma once
+#include "SDL_mixer.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,7 +12,7 @@
 #include "frameRate.h"
 #include "drawFunctions.h"
 #include "bullet.h"
-#include "initializeApp.h"
+//#include "initializeApp.h"
 
 
 extern void DoInput(void);
