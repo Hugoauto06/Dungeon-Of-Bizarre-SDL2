@@ -4,6 +4,8 @@
 #include "app.h"
 
 extern App app;
+extern int naive_lerp(float a, float b, float t);
+
 
 class Camera
 {

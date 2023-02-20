@@ -13,6 +13,8 @@ App::App(const char* pName, int pWidth, int pHeight)
 	left		= false;
 	right		= false;
 	click		= false;
+	Q			= false;
+	E			= false;
 }
 
 void App::Display()

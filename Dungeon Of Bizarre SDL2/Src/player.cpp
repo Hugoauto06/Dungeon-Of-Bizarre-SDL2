@@ -1,5 +1,7 @@
 #include "player.h"
 
+int val = 0;
+bool canDash = false;
 Player::Player(int pX, int pY, int pSize, SDL_Texture* pTexture)
 	:Entity { pX, pY, pSize, pTexture }
 {
@@ -18,6 +20,8 @@ void Player::Restart()
 
 void Player::Update()
 {
+	val++;
+
 	positionRect.x = x;
 	positionRect.y = y;
 
@@ -29,6 +33,38 @@ void Player::Update()
 
 	x += hsp;
 	y += vsp;
+
+	speed = naive_lerp(speed, 0, 0.01);
+
+	if (val >= 60)
+	{
+		canDash = true;
+	}
+	else
+	{
+		canDash = false;
+	}
+
+	if (speed > 1)
+	{
+		x = x + float(speed * cos((double)angle * 0.0174532925));
+		y = y + float(speed * sin((double)angle * 0.0174532925));
+	}
+	else
+	{
+		if (app.Q && canDash)
+		{
+			val = 0;
+			angle = 180.0;
+			speed = 22.0f;
+		}
+		if (app.E && canDash)
+		{
+			val = 0;
+			angle = 0.0;
+			speed = 22.0f;
+		}
+	}
 
 	if (hsp > 0)
 		flip = SDL_FLIP_NONE;

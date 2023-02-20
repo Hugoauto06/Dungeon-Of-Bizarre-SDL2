@@ -11,7 +11,12 @@
 #include "player.h"
 #include "frameRate.h"
 #include "drawFunctions.h"
+#include "collision.h"
+#include "spawner.h"
+#include "SDL_ttf.h"
 #include "bullet.h"
 //#include "initializeApp.h"
 
 extern void DoInput(void);
+extern void InstantiateBullet(int pX, int pY);
+extern void InstantiateEnemy(int pX, int pY);

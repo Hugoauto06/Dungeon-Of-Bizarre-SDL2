@@ -18,7 +18,7 @@ public:
 	bool left;
 	bool right;
 	bool click;
-	bool fullScreen;
+	bool Q, E;
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;

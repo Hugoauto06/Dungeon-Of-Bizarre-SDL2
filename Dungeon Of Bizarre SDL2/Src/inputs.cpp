@@ -7,20 +7,30 @@ void DoKeyUp(SDL_KeyboardEvent* event)
 
 		switch (event->keysym.scancode)
 		{
+		case SDL_SCANCODE_UP:
 		case SDL_SCANCODE_W:
 			app.up = false;
 			break;
 
+		case SDL_SCANCODE_DOWN:
 		case SDL_SCANCODE_S:
 			app.down = false;
 			break;
 
+		case SDL_SCANCODE_LEFT:
 		case SDL_SCANCODE_A:
 			app.left = false;
 			break;
 
+		case SDL_SCANCODE_RIGHT:
 		case SDL_SCANCODE_D:
 			app.right = false;
+			break;
+		case SDL_SCANCODE_Q:
+			app.Q	= false;
+			break;
+		case SDL_SCANCODE_E:
+			app.E	= false;
 			break;
 		}
 	}
@@ -32,20 +42,30 @@ void DoKeyDown(SDL_KeyboardEvent* event)
 	{
 		switch (event->keysym.scancode)
 		{
+		case SDL_SCANCODE_UP:
 		case SDL_SCANCODE_W:
 			app.up = true;
 		break;
 
+		case SDL_SCANCODE_DOWN:
 		case SDL_SCANCODE_S:
 			app.down = true;
 		break;
 
+		case SDL_SCANCODE_LEFT:
 		case SDL_SCANCODE_A:
 			app.left = true;
 		break;
 
+		case SDL_SCANCODE_RIGHT:
 		case SDL_SCANCODE_D:
 			app.right = true;
+		break;
+		case SDL_SCANCODE_Q:
+			app.Q = true;
+		break;
+		case SDL_SCANCODE_E:
+			app.E = true;
 		break;
 
 		case SDL_SCANCODE_F1:

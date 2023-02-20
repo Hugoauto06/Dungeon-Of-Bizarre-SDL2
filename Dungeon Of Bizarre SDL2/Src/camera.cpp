@@ -1,9 +1,5 @@
 #include "camera.h"
 
-int naive_lerp(float a, float b, float t)
-{
-	return (int)(a + t * (b - a));
-}
 
 Camera::Camera(int pX, int pY, int pW, int pH)
 {

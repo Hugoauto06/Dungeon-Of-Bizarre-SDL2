@@ -1,7 +1,4 @@
 #include "main.h"
-#include "collision.h"
-#include "spawner.h"
-#include "SDL_ttf.h"
 using namespace std;
 
 App app					= App("Dungeon Of Bizarre", 1280, 720);
@@ -17,6 +14,7 @@ vector<Enemy*> enemies;
 TTF_Font* font;
 int delayClick = 0;
 long score = 0;
+long highscore = 0;
 
 void Init()
 {
@@ -27,31 +25,26 @@ void Init()
 
 	font = TTF_OpenFont("font.ttf", 72);
 }
-
-void InstantiateEnemy(int pX, int pY)
-{
-	Enemy* _enemy = new Enemy(pX, pY, 64, tEnemy);
-	enemies.push_back(_enemy);
-}
-
-void InstantiateBullet(int pX, int pY)
-{
-	Bullet* _bullet = new Bullet(pX, pY, 16, tBullet);
-	_bullet->speed	= 15.0f;
-	bullets.push_back(_bullet);
-
-	Mix_Chunk* sndGunshot = Mix_LoadWAV("sndGunshot.wav");
-	Mix_VolumeChunk(sndGunshot, 10);
-	Mix_PlayChannel(2, sndGunshot, 0);
-}
-
+short val;
 void UpdateDelegate()
 {
 	DoInput();
+	val++;
 	delayClick++;
 	spawner.Update();
 	player.Update();
 	camera.FollowPoint(player.x, player.y);
+
+	if (val >= 60)
+	{
+		score++;
+		val = 0;
+	}
+
+	if (score > highscore)
+	{
+		highscore = score;
+	}
 
 	for (int i = 0; i < enemies.size(); i++)
 	{
@@ -108,11 +101,14 @@ void DrawDelegate()
 	}
 
 	/* Gui */
-	SDL_Rect _dst = { 32, 32, 96, 48 };
-	SDL_Color _col = { 0, 255, 255, 255 };
-	string _s = "Score: " + to_string(score);
+	SDL_Rect _scoreDst		= { 32, 32, 96, 32 };
+	SDL_Rect _highscoreDst	= { 32, 64, 144, 32 };
+	SDL_Color _col			= { 0, 255, 255, 255 };
+	string _s				= "Score: " + to_string(score);
+	string _s2				= "Highscore: " + to_string(highscore);
 
-	DrawFunctions::DrawText(_s.c_str(), _dst, _col);
+	DrawFunctions::DrawText(_s.c_str(), _scoreDst, _col);
+	DrawFunctions::DrawText(_s2.c_str(), _highscoreDst, _col);
 
 	/* Update Display */
 	app.Display();

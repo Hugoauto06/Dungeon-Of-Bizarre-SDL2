@@ -15,6 +15,9 @@ public:
 	bool hurt;
 	float health;
 
+	float speed = 0;
+	double angle = 0;
+
 	void Update();
 	void Draw();
 	void Restart();
