@@ -1,9 +1,13 @@
 #pragma once
 #include "player.h"
 #include "drawFunctions.h"
+#include "bullet.h"
+#include "enemy.h"
+#include <vector>
 
 extern App app;
 extern Camera camera;
+extern std::vector<Bullet*> bullets;
 
 class Enemy : public Entity
 {

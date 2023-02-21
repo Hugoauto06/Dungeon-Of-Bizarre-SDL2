@@ -82,13 +82,13 @@ void Player::Update()
 		currentFrame = 0;
 	}
 
-	if (animated)
-		Animate();
-
 	if (hurt)
 	{
 		hurt = false;
 	}
+
+	if (animated)
+		Animate();
 }
 
 void Player::Draw()

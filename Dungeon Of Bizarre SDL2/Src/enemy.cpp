@@ -32,6 +32,16 @@ void Enemy::Update(Player *pPlayer)
 		y-= _speed;
 	}
 
+
+	for (int j = 0; j < bullets.size(); j++)
+	{
+		if (Collision::CollideAABB(positionRect, bullets[j]->positionRect))
+		{
+			health -= 25.0f;
+			bullets.erase(bullets.begin() + j);
+		}
+	}
+
 	if (Collision::CollideAABB(positionRect, pPlayer->positionRect) && pPlayer->hurt == false)
 	{
 		pPlayer->health -= 25.0f;

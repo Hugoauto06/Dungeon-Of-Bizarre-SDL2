@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL_mixer.h"
 #include <iostream>
+#include <thread>
 #include <string>
 #include <vector>
 #include "SDL.h"
